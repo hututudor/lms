@@ -2,7 +2,7 @@
 
 namespace LMS.Application.Features.Lectures.Queries.GetAll;
 
-public class GetAllLecturesQueryResponse: BaseResponse
+public class GetAllLecturesQueryResponse
 {
     public List<LectureDto> Lectures { get; set; }
 }

@@ -29,7 +29,7 @@ public class BaseRepository<T>: IAsyncRepository<T> where T: class
 
     public virtual async Task<Result<T>> DeleteAsync(Guid id)
     {
-        var result = await FindByIdAsync(id);
+        var result = await GetByIdAsync(id);
         if (!result.IsSuccess)
         {
             return Result<T>.Failure($"Entity with id {id} not found");
@@ -40,7 +40,7 @@ public class BaseRepository<T>: IAsyncRepository<T> where T: class
         return Result<T>.Success(result.Value);
     }
 
-    public virtual async Task<Result<T>> FindByIdAsync(Guid id)
+    public virtual async Task<Result<T>> GetByIdAsync(Guid id)
     {
         var result = await context.Set<T>().FindAsync(id);
         if (result == null)

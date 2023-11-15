@@ -37,4 +37,28 @@ public class Lecture: AuditableEntity
         return Result<Lecture>.Success(new Lecture(stepId, name, url));
     }
 
+    public static Result<Lecture> Update(Lecture lecture, Guid stepId, string name, string url)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return Result<Lecture>.Failure("name is required");
+        }
+
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            return Result<Lecture>.Failure("url is required");
+        }
+
+        if (stepId == default)
+        {
+            return Result<Lecture>.Failure("step id should not be default");
+        }
+
+        lecture.StepId = stepId;
+        lecture.Name = name;
+        lecture.Url = url;
+        
+        return Result<Lecture>.Success(lecture);
+    }
+
 }

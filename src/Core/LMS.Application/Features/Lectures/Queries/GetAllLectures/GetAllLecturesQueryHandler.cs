@@ -25,7 +25,6 @@ public class GetAllLecturesQueryHandler: IRequestHandler<GetAllLecturesQuery, Ge
 
         return new GetAllLecturesQueryResponse
         {
-            Success = true,
             Lectures = lecturesDto
         };
     }

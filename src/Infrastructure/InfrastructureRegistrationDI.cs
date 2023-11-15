@@ -30,6 +30,9 @@ namespace Infrastructure
             
             services.AddScoped<
                 ICourseRepository, global::Infrastructure.Repositories.CourseRepository>(); 
+            
+            services.AddScoped<
+                ILectureRepository, global::Infrastructure.Repositories.LectureRepository>(); 
 
 
             return services;

@@ -6,7 +6,7 @@ namespace Infrastructure.Repositories;
 
 public class BaseRepository<T>: IAsyncRepository<T> where T: class
 {
-    private readonly GlobalLMSContext context;
+    protected readonly GlobalLMSContext context;
 
     public BaseRepository(GlobalLMSContext context)
     {

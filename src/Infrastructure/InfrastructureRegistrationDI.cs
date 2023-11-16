@@ -36,7 +36,9 @@ namespace Infrastructure
             
             services.AddScoped<
                 IEnrollmentRepository, global::Infrastructure.Repositories.EnrollmentRepository>(); 
-
+            
+            services.AddScoped<
+                IStepRepository, global::Infrastructure.Repositories.StepRepository>(); 
 
             return services;
         }

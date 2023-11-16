@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LMS.Application.Features.Lectures.Queries.GetById;
 
-public class GetLectureByIdHandler: IRequestHandler<GetLectureByIdQuery, LectureDto>
+public class GetLectureByIdHandler: IRequestHandler<GetLectureByIdQuery, LectureDto?>
 {
     private readonly ILectureRepository repository;
 
@@ -15,7 +15,7 @@ public class GetLectureByIdHandler: IRequestHandler<GetLectureByIdQuery, Lecture
     public async Task<LectureDto?> Handle(GetLectureByIdQuery request, CancellationToken cancellationToken)
     {
         var lecture = await repository.GetByIdAsync(request.Id);
-        return lecture.Value is null ? new LectureDto() : new LectureDto
+        return !lecture.IsSuccess ? null : new LectureDto
         {
             Id = lecture.Value.Id,
             StepId = lecture.Value.StepId,

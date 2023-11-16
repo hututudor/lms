@@ -22,6 +22,18 @@ public class Step: AuditableEntity
         
         return Result<Step>.Success(new Step(courseId));
     }
+    
+    public static Result<Step> Update(Step step, Guid courseId)
+    {
+        if (courseId == default)
+        {
+            return Result<Step>.Failure("course id should not be default");
+        }
+        
+        step.CourseId = courseId;
+        
+        return Result<Step>.Success(step);
+    }
 
     public void AttachCourse(Guid courseId)
     {

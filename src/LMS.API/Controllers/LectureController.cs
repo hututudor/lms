@@ -22,6 +22,10 @@ public class LectureController: ApiControllerBase
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await Mediator.Send(new GetLectureByIdQuery(id));
+        if (result == null)
+        {
+            return NotFound();
+        }
         return Ok(result);
     }
 

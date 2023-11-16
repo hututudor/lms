@@ -29,7 +29,25 @@ public class Course: AuditableEntity
         
         return Result<Course>.Success(new Course(name, userId));
     }
+    
+    public static Result<Course> Update(Course course, string name, Guid userId)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return Result<Course>.Failure("name is required");
+        }
 
+        if (userId == default)
+        {
+            return Result<Course>.Failure("user id should not be default");
+        }
+
+        course.UserId = userId;
+        course.Name = name;
+        
+        return Result<Course>.Success(course);
+    }
+    
     public void AttachUser(Guid userId)
     {
         if (userId == default)

@@ -43,10 +43,10 @@ namespace LMS.Application.Features.Courses.Commands.CreateCourse
             return new CreateCourseCommandResponse
             {
                 Success = true,
-                Course = new CreateCourseDto
+                Course = new CourseDto
                 {
-                    CourseId = course.Value.Id,
-                    CourseName = course.Value.Name,
+                    Id = course.Value.Id,
+                    Name = course.Value.Name,
                     UserId = course.Value.UserId
                 }
             };

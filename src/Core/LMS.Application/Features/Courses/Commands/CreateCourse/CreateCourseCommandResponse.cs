@@ -1,6 +1,5 @@
 
 using LMS.Application.Responses;
-//using Xunit;
 
 namespace LMS.Application.Features.Courses.Commands.CreateCourse
 {
@@ -11,7 +10,7 @@ namespace LMS.Application.Features.Courses.Commands.CreateCourse
             
         }
 
-        public CreateCourseDto Course { get; set; }
+        public CourseDto Course { get; set; }
         
     }
 }

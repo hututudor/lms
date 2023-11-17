@@ -1,7 +1,6 @@
-
-using LMS.Application.Features.Quiz.Commands.UpdateQuiz;
 using LMS.Application.Features.Quizzes.Commands.CreateQuiz;
 using LMS.Application.Features.Quizzes.Commands.DeleteQuiz;
+using LMS.Application.Features.Quizzes.Commands.UpdateQuiz;
 using LMS.Application.Features.Quizzes.Queries.GetAll;
 using LMS.Application.Features.Quizzes.Queries.GetById;
 using Microsoft.AspNetCore.Mvc;

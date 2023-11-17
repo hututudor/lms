@@ -1,7 +1,7 @@
 namespace LMS.Domain.Entities;
 using LMS.Domain.Common;
 
-public class Quiz: AuditableEntity
+public class Quiz
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }

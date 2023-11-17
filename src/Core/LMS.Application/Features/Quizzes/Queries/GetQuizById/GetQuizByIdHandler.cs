@@ -15,7 +15,7 @@ public class GetQuizByIdHandler: IRequestHandler<GetQuizByIdQuery, QuizDto>
     public async Task<QuizDto?> Handle(GetQuizByIdQuery request, CancellationToken cancellationToken)
     {
         var quiz = await repository.GetByIdAsync(request.Id);
-        return quiz.Value is null ? new QuizDto() : new QuizDto
+        return !quiz.IsSuccess ? null : new QuizDto
         {
             Id = quiz.Value.Id,
             StepId = quiz.Value.StepId,

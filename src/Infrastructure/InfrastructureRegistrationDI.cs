@@ -35,6 +35,9 @@ namespace Infrastructure
                 ILectureRepository, global::Infrastructure.Repositories.LectureRepository>(); 
             
             services.AddScoped<
+                IQuizRepository, global::Infrastructure.Repositories.QuizRepository>(); 
+            
+            services.AddScoped<
                 IEnrollmentRepository, global::Infrastructure.Repositories.EnrollmentRepository>(); 
             
             services.AddScoped<

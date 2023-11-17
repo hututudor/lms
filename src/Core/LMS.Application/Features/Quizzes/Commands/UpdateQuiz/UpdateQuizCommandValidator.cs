@@ -1,5 +1,5 @@
 using FluentValidation;
-using LMS.Application.Features.Quiz.Commands.UpdateQuiz;
+using LMS.Application.Features.Quizzes.Commands.UpdateQuiz;
 
 namespace LMS.Application.Features.Quizzes.Commands.UpdateQuiz;
 

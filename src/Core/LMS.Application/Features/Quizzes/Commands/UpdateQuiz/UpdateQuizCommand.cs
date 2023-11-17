@@ -1,7 +1,7 @@
 using LMS.Application.Features.Quizzes.Commands.UpdateQuiz;
 using MediatR;
 
-namespace LMS.Application.Features.Quiz.Commands.UpdateQuiz;
+namespace LMS.Application.Features.Quizzes.Commands.UpdateQuiz;
 
 public class UpdateQuizCommand: IRequest<UpdateQuizCommandResponse>
 {

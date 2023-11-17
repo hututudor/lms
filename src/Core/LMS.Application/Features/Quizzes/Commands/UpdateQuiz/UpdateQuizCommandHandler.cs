@@ -1,4 +1,4 @@
-using LMS.Application.Features.Quiz.Commands.UpdateQuiz;
+using LMS.Application.Features.Quizzes.Commands.UpdateQuiz;
 using LMS.Application.Persistence;
 using LMS.Domain.Entities;
 using MediatR;

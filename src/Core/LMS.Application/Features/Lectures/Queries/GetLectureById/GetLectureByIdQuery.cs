@@ -2,4 +2,4 @@
 
 namespace LMS.Application.Features.Lectures.Queries.GetById;
 
-public record GetLectureByIdQuery(Guid Id) : IRequest<LectureDto>;
+public record GetLectureByIdQuery(Guid Id) : IRequest<LectureDto?>;

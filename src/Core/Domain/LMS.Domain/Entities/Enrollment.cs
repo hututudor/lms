@@ -30,6 +30,25 @@ public class Enrollment: AuditableEntity
         
         return Result<Enrollment>.Success(new Enrollment(userId, courseId));
     }
+    
+    public static Result<Enrollment> Update(Enrollment enrollment, Guid userId, Guid courseId, DateTime? completedAt)
+    {
+        if (userId == default)
+        {
+            return Result<Enrollment>.Failure("user id should not be default");
+        }        
+        
+        if (courseId == default)
+        {
+            return Result<Enrollment>.Failure("course id should not be default");
+        }
+
+        enrollment.UserId = userId;
+        enrollment.CourseId = courseId;
+        enrollment.CompletedAt = completedAt;
+        
+        return Result<Enrollment>.Success(enrollment);
+    }
 
     public void AttachUser(Guid userId)
     {

@@ -33,7 +33,12 @@ namespace Infrastructure
             
             services.AddScoped<
                 ILectureRepository, global::Infrastructure.Repositories.LectureRepository>(); 
-
+            
+            services.AddScoped<
+                IEnrollmentRepository, global::Infrastructure.Repositories.EnrollmentRepository>(); 
+            
+            services.AddScoped<
+                IStepRepository, global::Infrastructure.Repositories.StepRepository>(); 
 
             return services;
         }

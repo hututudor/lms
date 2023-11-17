@@ -14,7 +14,7 @@ public class GetAllLecturesQueryHandler: IRequestHandler<GetAllLecturesQuery, Ge
     
     public async Task<GetAllLecturesQueryResponse> Handle(GetAllLecturesQuery request, CancellationToken cancellationToken)
     {
-        var lectures = await repository.GetAll();
+        var lectures = await repository.GetAllByStepId(request.StepId);
         var lecturesDto = lectures.Value.Select(lecture => new LectureDto
         {
             Id = lecture.Id,

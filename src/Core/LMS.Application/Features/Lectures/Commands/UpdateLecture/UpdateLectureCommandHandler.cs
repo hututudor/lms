@@ -26,7 +26,7 @@ public class UpdateLectureCommandHandler: IRequestHandler<UpdateLectureCommand, 
         }
         
         var updatedLecture = Lecture.Update(lecture.Value, request.StepId, request.Name, request.Url);
-        if (!lecture.IsSuccess)
+        if (!updatedLecture.IsSuccess)
         {
             return new UpdateLectureCommandResponse
             {

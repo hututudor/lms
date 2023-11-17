@@ -1,3 +1,6 @@
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+
 namespace LMS.Domain.Entities;
 using LMS.Domain.Common;
 
@@ -17,7 +20,26 @@ public class Question
         Answer = answer;
         Options = options;
     }
+    
+    public static Result<Question> Update(Question question, Guid quizId, string description, string answear, List<string> options)
+    {
+        if (string.IsNullOrWhiteSpace(description))
+        {
+            return Result<Question>.Failure("description is required");
+        }
 
+        if (quizId == default)
+        {
+            return Result<Question>.Failure("quiz id should not be default");
+        }
+
+        question.Description = description;
+        question.Options = options;
+        question.Answer = answear;
+        
+        return Result<Question>.Success(question);
+    }
+    
     public static Result<Question> Create(Guid quizId, string description, string answer, List<string> options)
     {
         if (quizId == default)

@@ -42,6 +42,9 @@ namespace Infrastructure
             
             services.AddScoped<
                 IStepRepository, global::Infrastructure.Repositories.StepRepository>(); 
+            
+            services.AddScoped<
+                IQuestionRepository, global::Infrastructure.Repositories.QuestionRepository>(); 
 
             return services;
         }

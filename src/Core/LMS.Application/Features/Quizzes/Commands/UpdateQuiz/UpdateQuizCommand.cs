@@ -1,4 +1,3 @@
-using LMS.Application.Features.Quizzes.Commands.UpdateQuiz;
 using MediatR;
 
 namespace LMS.Application.Features.Quizzes.Commands.UpdateQuiz;

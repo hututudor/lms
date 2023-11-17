@@ -1,7 +1,7 @@
 namespace LMS.Domain.Entities;
 using LMS.Domain.Common;
 
-public class Quiz
+public class Quiz: AuditableEntity
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }
@@ -27,6 +27,24 @@ public class Quiz
         }
         
         return Result<Quiz>.Success(new Quiz(name, stepId));
+    }
+    
+    public static Result<Quiz> Update(Quiz quiz, Guid stepId, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return Result<Quiz>.Failure("name is required");
+        }
+
+        if (stepId == default)
+        {
+            return Result<Quiz>.Failure("step id should not be default");
+        }
+
+        quiz.StepId = stepId;
+        quiz.Name = name;
+        
+        return Result<Quiz>.Success(quiz);
     }
     
     public void AttachStep(Guid stepId)

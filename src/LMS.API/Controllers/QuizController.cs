@@ -9,7 +9,7 @@ namespace LMS.API.Controllers;
 
 public class QuizController: ApiControllerBase
 {
-    [HttpGet("Quiz/Step/{id:Guid}")]
+    [HttpGet("Step/{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(Guid id)
     {
@@ -25,7 +25,7 @@ public class QuizController: ApiControllerBase
         return Ok(result);
     }
 
-    [HttpPost("Quiz/Step/{id:Guid}")]
+    [HttpPost("Step")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(Guid id, CreateQuizCommand command)
     {
@@ -39,7 +39,7 @@ public class QuizController: ApiControllerBase
         return Ok(result);
     }
     
-    [HttpPut("Quiz/{id:Guid}")]
+    [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateQuizCommand command)
     {

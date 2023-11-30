@@ -9,7 +9,7 @@ namespace LMS.API.Controllers;
 
 public class EnrollmentController: ApiControllerBase
 {
-    [HttpGet("Enrollment/User/{id:Guid}")]
+    [HttpGet("User/{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllByUserId(Guid id)
     {
@@ -41,7 +41,7 @@ public class EnrollmentController: ApiControllerBase
         return Ok(result);
     }
     
-    [HttpPut("Enrollment/{id:Guid}")]
+    [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateEnrollmentCommand command)
     {

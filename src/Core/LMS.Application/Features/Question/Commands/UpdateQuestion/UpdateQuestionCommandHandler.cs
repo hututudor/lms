@@ -15,6 +15,18 @@ public class UpdateQuestionCommandHandler: IRequestHandler<UpdateQuestionCommand
 
     public async Task<UpdateQuestionCommandResponse> Handle(UpdateQuestionCommand request, CancellationToken cancellationToken)
     {
+        
+        var validator = new UpdateQuestionCommandValidator();
+        var validatorResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validatorResult.IsValid)
+        {
+            return new UpdateQuestionCommandResponse()
+            {
+                Success = false,
+                ValidationsErrors = validatorResult.Errors.Select(e => e.ErrorMessage).ToList()
+            };
+        }
         var question = await repository.GetByIdAsync(request.Id);
         if (!question.IsSuccess)
         {

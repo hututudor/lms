@@ -9,7 +9,7 @@ namespace LMS.API.Controllers
 {
     public class CourseController : ApiControllerBase
     {
-        [HttpPost("Course")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(CreateCourseCommand command)
         {
@@ -29,15 +29,19 @@ namespace LMS.API.Controllers
             return Ok(result);
         }
     
-        [HttpGet("Course/{id:Guid}")]
+        [HttpGet("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await Mediator.Send(new GetCourseByIdQuery(id));
+            if (result == null)
+            {
+                return NotFound();
+            }
             return Ok(result);
         }
         
-        [HttpPut("Course/{id:Guid}")]
+        [HttpPut("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(Guid id, UpdateCourseCommand command)
         {

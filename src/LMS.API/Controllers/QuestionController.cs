@@ -9,7 +9,7 @@ namespace LMS.API.Controllers;
 
 public class QuestionController: ApiControllerBase
 {
-    [HttpGet("Question/{id:Guid}")]
+    [HttpGet("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(Guid id)
     {
@@ -29,7 +29,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
 
-    [HttpPost("Question/{id:Guid}")]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(Guid id, CreateQuestionCommand command)
     {
@@ -43,7 +43,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
     
-    [HttpPut("Question/{id:Guid}")]
+    [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateQuestionCommand command)
     {

@@ -9,7 +9,7 @@ namespace LMS.API.Controllers;
 
 public class StepController: ApiControllerBase
 {
-    [HttpGet("Step/Course/{id:Guid}")]
+    [HttpGet("Course/{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllByCourseId(Guid id)
     {
@@ -41,7 +41,7 @@ public class StepController: ApiControllerBase
         return Ok(result);
     }
 
-    [HttpPut("Step/{id:Guid}")]
+    [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateStepCommand command)
     {

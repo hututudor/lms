@@ -13,13 +13,15 @@ public class GetCourseByIdHandler: IRequestHandler<GetCourseByIdQuery, CourseDto
         this.repository = repository;
     }
     
-    public async Task<CourseDto> Handle(GetCourseByIdQuery request, CancellationToken cancellationToken)    {
+    public async Task<CourseDto?> Handle(GetCourseByIdQuery request, CancellationToken cancellationToken)
+    {
         var course = await repository.GetByIdAsync(request.Id);
-        return course.Value is null ? new CourseDto() : new CourseDto
+        return !course.IsSuccess ? null : new CourseDto
         {
             Id = course.Value.Id,
             Name = course.Value.Name,
             UserId = course.Value.UserId
         };
-    }   
+    }
+
 }

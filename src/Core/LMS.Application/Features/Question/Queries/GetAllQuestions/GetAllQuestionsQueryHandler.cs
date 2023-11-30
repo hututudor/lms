@@ -14,7 +14,7 @@ public class GetAllQuestionsQueryHandler: IRequestHandler<GetAllQuestionsQuery, 
     
     public async Task<GetAllQuestionsQueryResponse> Handle(GetAllQuestionsQuery request, CancellationToken cancellationToken)
     {
-        var questions = await repository.GetAll();
+        var questions = await repository.GetAllByQuizId(request.QuizId);
         var questionsDto = questions.Value.Select(question => new QuestionDto()
         {
             Id = question.Id,

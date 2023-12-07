@@ -3,12 +3,14 @@ using LMS.Application.Features.Steps.Commands.DeleteStep;
 using LMS.Application.Features.Steps.Commands.UpdateStep;
 using LMS.Application.Features.Steps.Queries.GetAllStepsByCourseId;
 using LMS.Application.Features.Steps.Queries.GetStepById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS.API.Controllers;
 
 public class StepController: ApiControllerBase
 {
+    [Authorize(Roles = "User")]
     [HttpGet("Course/{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllByCourseId(Guid id)
@@ -17,6 +19,7 @@ public class StepController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "User")]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
@@ -29,6 +32,7 @@ public class StepController: ApiControllerBase
         return Ok(result); 
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(CreateStepCommand command)
@@ -41,6 +45,7 @@ public class StepController: ApiControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateStepCommand command)
@@ -50,6 +55,7 @@ public class StepController: ApiControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)

@@ -21,7 +21,7 @@ namespace LMS.Identity
                options =>
                options.UseNpgsql(
                    configuration.GetConnectionString
-                   ("GlobalTicketsUserConnection"),
+                   ("GlobalLMSUserConnection"),
                    builder =>
                    builder.MigrationsAssembly(
                        typeof(ApplicationDbContext)

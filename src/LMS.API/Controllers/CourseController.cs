@@ -4,11 +4,13 @@ using LMS.Application.Features.Courses.Commands.UpdateCourse;
 using LMS.Application.Features.Courses.Queries;
 using LMS.Application.Features.Courses.Queries.GetCourseById;
 using LMS.Application.Features.Lectures.Queries.GetById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace LMS.API.Controllers
 {
     public class CourseController : ApiControllerBase
     {
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(CreateCourseCommand command)
@@ -21,6 +23,7 @@ namespace LMS.API.Controllers
             return Ok(result);
         }
         
+        [Authorize(Roles = "User")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(Guid id)
@@ -29,6 +32,7 @@ namespace LMS.API.Controllers
             return Ok(result);
         }
     
+        [Authorize(Roles = "User")]
         [HttpGet("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetById(Guid id)
@@ -41,6 +45,7 @@ namespace LMS.API.Controllers
             return Ok(result);
         }
         
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(Guid id, UpdateCourseCommand command)
@@ -50,6 +55,7 @@ namespace LMS.API.Controllers
             return Ok(result);
         }
         
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id)

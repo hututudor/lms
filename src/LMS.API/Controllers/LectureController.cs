@@ -3,12 +3,14 @@ using LMS.Application.Features.Lectures.Commands.DeleteLecture;
 using LMS.Application.Features.Lectures.Commands.UpdateLecture;
 using LMS.Application.Features.Lectures.Queries.GetAll;
 using LMS.Application.Features.Lectures.Queries.GetById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS.API.Controllers;
 
 public class LectureController: ApiControllerBase
 {
+    [Authorize(Roles = "User")]
     [HttpGet("Step/{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(Guid id)
@@ -17,6 +19,7 @@ public class LectureController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "User")]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
@@ -29,6 +32,7 @@ public class LectureController: ApiControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("Step")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(Guid id, CreateLectureCommand command)
@@ -43,6 +47,7 @@ public class LectureController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateLectureCommand command)
@@ -52,6 +57,7 @@ public class LectureController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)

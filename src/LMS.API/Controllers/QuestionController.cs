@@ -3,12 +3,14 @@ using LMS.Application.Features.Questions.Commands.DeleteQuestion;
 using LMS.Application.Features.Questions.Commands.UpdateQuestion;
 using LMS.Application.Features.Questions.Queries.GetAll;
 using LMS.Application.Features.Questions.Queries.GetById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS.API.Controllers;
 
 public class QuestionController: ApiControllerBase
 {
+    [Authorize(Roles = "Admin")]
     [HttpGet("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(Guid id)
@@ -17,6 +19,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "User")]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
@@ -29,6 +32,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(Guid id, CreateQuestionCommand command)
@@ -43,6 +47,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateQuestionCommand command)
@@ -52,6 +57,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)

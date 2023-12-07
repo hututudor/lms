@@ -3,12 +3,14 @@ using LMS.Application.Features.Enrollments.Commands.DeleteEnrollment;
 using LMS.Application.Features.Enrollments.Commands.UpdateEnrollment;
 using LMS.Application.Features.Enrollments.Queries.GetAllEnrollmentsByUserId;
 using LMS.Application.Features.Enrollments.Queries.GetEnrollmentById;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS.API.Controllers;
 
 public class EnrollmentController: ApiControllerBase
 {
+    [Authorize(Roles = "User")]
     [HttpGet("User/{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllByUserId(Guid id)
@@ -17,6 +19,7 @@ public class EnrollmentController: ApiControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "User")]
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
@@ -29,6 +32,7 @@ public class EnrollmentController: ApiControllerBase
         return Ok(result); 
     }
     
+    [Authorize(Roles = "User")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(CreateEnrollmentCommand command)
@@ -41,6 +45,7 @@ public class EnrollmentController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "User")]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateEnrollmentCommand command)
@@ -50,6 +55,7 @@ public class EnrollmentController: ApiControllerBase
         return Ok(result);
     }
     
+    [Authorize(Roles = "User")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)

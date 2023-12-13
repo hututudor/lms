@@ -1,0 +1,65 @@
+﻿@page "/register"
+@using LMS.App.Auth
+@using LMS.App.ViewModels
+@inject NavigationManager navigationManager
+@inject CustomStateProvider authStateProvider
+
+<h1 class="h2 font-weight-normal login-title">
+    Login
+</h1>
+
+<EditForm class="form-signin" OnValidSubmit="OnSubmit" Model="registerRequest">
+    <DataAnnotationsValidator />
+
+    <label for="inputName" class="sr-only">Name</label>
+    <InputText id="inputName" class="form-control" @bind-Value="registerRequest.Name" autofocus placeholder="Name" />
+    <ValidationMessage For="@(() => registerRequest.Name)" />
+    
+    <label for="inputUsername" class="sr-only">Username</label>
+    <InputText id="inputUsername" class="form-control" @bind-Value="registerRequest.UserName" autofocus placeholder="Username" />
+    <ValidationMessage For="@(() => registerRequest.UserName)" />
+    
+    <label for="inputEmail" class="sr-only">Email</label>
+    <InputText id="inputEmail" class="form-control" @bind-Value="registerRequest.Email" autofocus placeholder="Email" />
+    <ValidationMessage For="@(() => registerRequest.Email)" />
+
+    <label for="inputPassword" class="sr-only">Password</label>
+    <InputText type="password" id="inputPassword" class="form-control" placeholder="Password" @bind-Value="registerRequest.Password" />
+    <ValidationMessage For="@(() => registerRequest.Password)" />
+
+    <br />
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="OnClickHandler">Register</button>
+
+    <label class="text-danger">@error</label>
+
+    <NavLink href="login">
+        <h6 class="font-weight-normal text-center">Login</h6>
+    </NavLink>
+</EditForm>
+
+@code {
+    RegisterViewModel registerRequest { get; set; } = new RegisterViewModel();
+    string error { get; set; }
+
+    async Task OnSubmit()
+    {
+        error = null;
+        try
+        {
+            await authStateProvider.Register(registerRequest);
+            
+            
+            LoginViewModel loginRequest = new LoginViewModel();
+            loginRequest.Username = registerRequest.UserName;
+            loginRequest.Password = registerRequest.Password;
+            await authStateProvider.Login(loginRequest);
+            
+            navigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+    }
+}

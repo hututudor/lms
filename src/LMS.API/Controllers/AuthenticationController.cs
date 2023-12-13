@@ -1,4 +1,6 @@
-﻿using LMS.Application.Contracts.Identity;
+﻿using LMS.API.Models;
+using LMS.Application.Contracts.Identity;
+using LMS.Application.Contracts.Interfaces;
 using LMS.Application.Models.Identity;
 using LMS.Identity.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +14,13 @@ public class AuthenticationController : ControllerBase
 {
     private readonly IAuthService _authService;
     private readonly ILogger<AuthenticationController> _logger;
+    private readonly ICurrentUserService currentUserService;
 
-    public AuthenticationController(IAuthService authService, ILogger<AuthenticationController> logger)
+    public AuthenticationController(IAuthService authService, ILogger<AuthenticationController> logger,  ICurrentUserService currentUserService)
     {
         _authService = authService;
         _logger = logger;
+        this.currentUserService = currentUserService;
     }
 
     [HttpPost]
@@ -72,4 +76,32 @@ public class AuthenticationController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
     }
+    
+    [HttpPost]
+    [Route("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        await _authService.Logout();
+        return Ok();
+    }
+    
+    [HttpGet]
+    [Route("currentuserinfo")]
+    public CurrentUser CurrentUserInfo()
+    {
+        if (this.currentUserService.GetCurrentUserId() == null)
+        {
+            return new CurrentUser
+            {
+                IsAuthenticated = false
+            };
+        }
+        return new CurrentUser
+        {
+            IsAuthenticated = true,
+            UserName = this.currentUserService.GetCurrentUserId(),
+            Claims = this.currentUserService.GetCurrentClaimsPrincipal().Claims.ToDictionary(c => c.Type, c => c.Value)
+        };
+    }
+
 }

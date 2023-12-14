@@ -23,7 +23,7 @@ namespace LMS.App.Services
 
         public async Task<ApiResponse<CourseViewModel>> CreateCourseAsync(CourseDto courseDto)
         {
-            courseDto.UserId = Guid.NewGuid();
+            courseDto.UserId = new Guid(await tokenService.GetUserIdAsync());
             httpClient.DefaultRequestHeaders.Authorization 
                 = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
             var result = await httpClient.PostAsJsonAsync(RequestUri, courseDto);

@@ -1,0 +1,59 @@
+﻿@page "/addcourse"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+<h3>New course</h3>
+
+<EditForm Model="@CourseDto" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
+    <div class="row mb-3 ms-2">
+        <label for="coursename" class="col-sm-3 form-label">Name:</label>
+        <div class="col-sm-5">
+            <InputText id="coursename" class="form-control" @bind-Value="@CourseDto.Name" placeholder="Enter course name"></InputText>
+            <ValidationMessage For="@(() => CourseDto.Name)" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save course</button>
+    <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Inject]
+    public ICourseDataService CourseDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public CourseDto CourseDto { get; set; } = new CourseDto();
+
+    public string Message { get; set; }
+}
+
+@functions {
+    private async Task HandleValidSubmit()
+    {
+        var result = await CourseDataService.CreateCourseAsync(CourseDto);
+        if (result.IsSuccess)
+        {
+            Message = "Course created successfully";
+            NavigationManager.NavigateTo("/courses");
+        }
+        else
+        {
+            Message = result.Message;
+            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            {
+                Message += result.ValidationErrors;
+            }
+        }
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/courses");
+    }
+
+}

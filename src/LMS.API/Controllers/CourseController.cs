@@ -10,7 +10,7 @@ namespace LMS.API.Controllers
 {
     public class CourseController : ApiControllerBase
     {
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(CreateCourseCommand command)

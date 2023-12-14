@@ -32,5 +32,10 @@ builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>(cl
     client.BaseAddress = new Uri("http://localhost:5131/");
 });
 
+builder.Services.AddHttpClient<ICourseDataService, CourseDataService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5131/");
+});
+
 
 await builder.Build().RunAsync();

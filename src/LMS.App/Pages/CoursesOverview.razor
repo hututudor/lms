@@ -1,0 +1,55 @@
+﻿@page "/courses"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+
+<div style="display: flex; justify-content: space-between">
+    <h3>Courses</h3>
+    <button class="btn btn-primary" @onclick="AddCourse">Add Course</button>
+</div>
+
+<br />
+
+@if (Courses == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Courses)
+            {
+                <tr>
+                    <td>@course.Name </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Inject]
+    public ICourseDataService CourseDataService { get; set; }
+    
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public List<CourseViewModel> Courses { get; set; }
+}
+
+@functions{
+    protected override async Task OnInitializedAsync()
+    {
+        Courses = (await CourseDataService.GetCoursesAsync()).ToList();
+    }
+    
+    private void AddCourse()
+    {
+        NavigationManager.NavigateTo("/addcourse");
+    }
+}

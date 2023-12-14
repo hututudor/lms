@@ -19,6 +19,7 @@ else
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@ else
             {
                 <tr>
                     <td>@course.Name </td>
+                    <td>    <button class="btn btn-link" @onclick="@((args) => EditCourse(course.Id))">Edit Course</button></td>
                 </tr>
             }
         </tbody>
@@ -51,5 +53,10 @@ else
     private void AddCourse()
     {
         NavigationManager.NavigateTo("/addcourse");
+    }
+    
+    private void EditCourse(Guid id)
+    {
+        NavigationManager.NavigateTo("/updatecourse/" + id.ToString());
     }
 }

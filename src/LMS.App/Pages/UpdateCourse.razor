@@ -1,0 +1,67 @@
+﻿@page "/updatecourse/{CourseId}"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+<h3>Update course</h3>
+
+<EditForm Model="@CourseViewModel" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
+    <div class="row mb-3 ms-2">
+        <label for="coursename" class="col-sm-3 form-label">Name:</label>
+        <div class="col-sm-5">
+            <InputText id="coursename" class="form-control" @bind-Value="@CourseViewModel.Name" placeholder="Enter course name"></InputText>
+            <ValidationMessage For="@(() => CourseViewModel.Name)" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save course</button>
+    <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Inject]
+    public ICourseDataService CourseDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    
+    [Parameter]
+    public string CourseId { get; set; }
+
+    public CourseViewModel CourseViewModel { get; set; } = null;
+
+    public string Message { get; set; }
+}
+
+@functions {
+    protected override async Task OnInitializedAsync()
+    {
+        CourseViewModel = await CourseDataService.GetCourseAsync(CourseId);
+    }
+    
+    private async Task HandleValidSubmit()
+    {
+        var result = await CourseDataService.UpdateCourseAsync(CourseViewModel);
+        if (result.IsSuccess)
+        {
+            Message = "Course updated successfully";
+            NavigationManager.NavigateTo("/courses");
+        }
+        else
+        {
+            Message = result.Message;
+            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            {
+                Message += result.ValidationErrors;
+            }
+        }
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/courses");
+    }
+
+}

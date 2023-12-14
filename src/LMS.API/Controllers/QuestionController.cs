@@ -10,7 +10,7 @@ namespace LMS.API.Controllers;
 
 public class QuestionController: ApiControllerBase
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpGet("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(Guid id)
@@ -32,7 +32,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(Guid id, CreateQuestionCommand command)
@@ -47,7 +47,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
     
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateQuestionCommand command)
@@ -57,7 +57,7 @@ public class QuestionController: ApiControllerBase
         return Ok(result);
     }
     
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)

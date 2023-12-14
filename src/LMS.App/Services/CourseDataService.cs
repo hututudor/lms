@@ -32,6 +32,32 @@ namespace LMS.App.Services
             response!.IsSuccess = result.IsSuccessStatusCode;
             return response!;
         }
+        
+        public async Task<ApiResponse<CourseViewModel>> UpdateCourseAsync(CourseViewModel courseDto)
+        {
+            httpClient.DefaultRequestHeaders.Authorization 
+                = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+            var result = await httpClient.PutAsJsonAsync($"{RequestUri}/{courseDto.Id}", courseDto);
+            result.EnsureSuccessStatusCode();
+            var response = await result.Content.ReadFromJsonAsync<ApiResponse<CourseViewModel>>();
+            response!.IsSuccess = result.IsSuccessStatusCode;
+            return response!;
+        }
+        
+        public async Task<CourseViewModel> GetCourseAsync(string courseId)
+        {
+            httpClient.DefaultRequestHeaders.Authorization 
+                = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+            var result = await httpClient.GetAsync($"{RequestUri}/{courseId}", HttpCompletionOption.ResponseHeadersRead);
+            result.EnsureSuccessStatusCode();
+            var content = await result.Content.ReadAsStringAsync();
+            if (!result.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(content);
+            }
+            var course = JsonSerializer.Deserialize<CourseViewModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return course!;
+        }
 
         public async Task<List<CourseViewModel>> GetCoursesAsync()
         {

@@ -10,7 +10,7 @@ namespace LMS.API.Controllers
 {
     public class CourseController : ApiControllerBase
     {
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> Create(CreateCourseCommand command)
@@ -45,7 +45,7 @@ namespace LMS.API.Controllers
             return Ok(result);
         }
         
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [HttpPut("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(Guid id, UpdateCourseCommand command)
@@ -55,7 +55,7 @@ namespace LMS.API.Controllers
             return Ok(result);
         }
         
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id)

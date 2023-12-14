@@ -32,7 +32,7 @@ public class StepController: ApiControllerBase
         return Ok(result); 
     }
     
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(CreateStepCommand command)
@@ -45,7 +45,7 @@ public class StepController: ApiControllerBase
         return Ok(result);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateStepCommand command)
@@ -55,7 +55,7 @@ public class StepController: ApiControllerBase
         return Ok(result);
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)

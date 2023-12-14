@@ -28,7 +28,7 @@ public class QuizController: ApiControllerBase
         return Ok(result);
     }
     
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpPost("Step")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(Guid id, CreateQuizCommand command)
@@ -43,7 +43,7 @@ public class QuizController: ApiControllerBase
         return Ok(result);
     }
     
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, UpdateQuizCommand command)
@@ -53,7 +53,7 @@ public class QuizController: ApiControllerBase
         return Ok(result);
     }
     
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     [HttpDelete]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)

@@ -1,0 +1,91 @@
+@page "/steps/{CourseId:guid}"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+
+<div style="display: flex; justify-content: space-between">
+    <h3>Steps</h3>
+</div>
+
+<br />
+
+@if (Steps == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+        <tr>
+            <th>No.</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @{
+            int counter = 1;
+            foreach (var step in Steps)
+            {
+                <tr>
+                    <td>@counter</td>
+                    <td>Name</td>
+                </tr>
+                counter++;
+            }
+        }
+        </tbody>
+    </table>
+}
+
+
+<EditForm Model="@StepDto" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+    <button type="submit" class="btn btn-primary">Add Step</button>
+</EditForm>
+
+@code {
+    [Inject]
+    public IStepDataService StepDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public List<StepDto> Steps { get; set; }
+    [Parameter]
+    public Guid CourseId { get; set; }
+    public StepDto StepDto { get; set; } = new StepDto();
+    
+    public string Message { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        Steps = (await StepDataService.GetStepsAsync(CourseId))
+            .Select(stepViewModel => new StepDto
+            {
+                Id = stepViewModel.Id,
+                CourseId = stepViewModel.CourseId,
+            })
+            .ToList();
+    }
+    
+    private async Task HandleValidSubmit()
+    {
+        StepDto.CourseId = CourseId;
+        var result = await StepDataService.CreateStepAsync(StepDto);
+        if (result.IsSuccess)
+        {
+            Steps.Add(StepDto);
+            StepDto = new StepDto(); 
+        }
+        else
+        {
+            Message = result.Message;
+            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            {
+                Message += result.ValidationErrors;
+            }
+        }
+    }
+}
+    

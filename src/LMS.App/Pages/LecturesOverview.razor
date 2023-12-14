@@ -1,0 +1,57 @@
+@page "/lectures"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+
+<div style="display: flex; justify-content: space-between">
+    <h3>Lectures</h3>
+    <button class="btn btn-primary" @onclick="AddLecture">Add Lecture</button>
+</div>
+
+<br />
+
+@if (Lectures == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Url</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var lecture in Lectures)
+        {
+            <tr>
+                <td>@lecture.Name </td>
+                <td>@lecture.Url</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Inject]
+    public ILectureDataService LectureDataService { get; set; }
+    
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public List<LectureViewModel> Lectures { get; set; }
+}
+
+@functions{
+    protected override async Task OnInitializedAsync()
+    {
+        Lectures = (await LectureDataService.GetLectureAsync()).ToList();
+    }
+    
+    private void AddLecture()
+    {
+        NavigationManager.NavigateTo("/addlecture");
+    }
+}

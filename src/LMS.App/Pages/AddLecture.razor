@@ -1,0 +1,66 @@
+@page "/addlecture"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+<h3>New Lecture</h3>
+
+<EditForm Model="@LectureDto" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
+    <div class="row mb-3 ms-2">
+        <label for="lecturename" class="col-sm-3 form-label">Name:</label>
+        <div class="col-sm-5">
+            <InputText id="lecturename" class="form-control" @bind-Value="@LectureDto.Name" placeholder="Enter lecture name"></InputText>
+            <ValidationMessage For="@(() => LectureDto.Name)" />
+        </div>
+    </div>
+    <div class="row mb-3 ms-2">
+        <label for="lectureurl" class="col-sm-3 form-label">Url:</label>
+        <div class="col-sm-5">
+            <InputText id="lectureurl" class="form-control" @bind-Value="@LectureDto.Url" placeholder="Enter lecture url"></InputText>
+            <ValidationMessage For="@(() => LectureDto.Url)" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Lecture</button>
+    <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Inject]
+    public ILectureDataService LectureDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public LectureDto LectureDto { get; set; } = new LectureDto();
+
+    public string Message { get; set; }
+}
+
+@functions {
+    private async Task HandleValidSubmit()
+    {
+        var result = await LectureDataService.CreateLectureAsync(LectureDto);
+        if (result.IsSuccess)
+        {
+            Message = "Lecture created successfully";
+            NavigationManager.NavigateTo("/lectures");
+        }
+        else
+        {
+            Message = result.Message;
+            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            {
+                Message += result.ValidationErrors;
+            }
+        }
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/lectures");
+    }
+
+}

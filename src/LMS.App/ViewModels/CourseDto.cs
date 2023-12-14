@@ -4,8 +4,7 @@ namespace LMS.App.ViewModels;
 
 public class CourseDto
 {
-    public string Name { get; set; } = string.Empty;
-    
     [Required(ErrorMessage = "Name is required")]
+    public string Name { get; set; } = string.Empty;
     public Guid UserId { get; set; }
 }

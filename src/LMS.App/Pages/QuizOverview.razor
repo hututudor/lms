@@ -1,0 +1,70 @@
+﻿@page "/quizzes/{StepId:guid}"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+
+<div style="display: flex; justify-content: space-between">
+    <h3>Quizzes</h3>
+    <div>
+        <button class="btn btn-primary" @onclick="AddQuiz">Add Quiz</button>
+    </div>
+</div>
+
+<br />
+
+@if (Quizzes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+        <tr>
+            <th style="padding-right: 100px">Name</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (var quiz in Quizzes)
+            {
+                <tr>
+                    <td>@quiz.Name</td>
+                    <td>    <button class="btn btn-link" @onclick="@((args) => EditQuiz(quiz.Id))">Edit Quiz</button></td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Inject]
+    public IQuizDataService QuizDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    public List<QuizViewModel> Quizzes { get; set; }
+    
+    [Parameter]
+    public Guid StepId { get; set; }
+    
+    public string Message { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        Quizzes = (await QuizDataService.GetQuizzesAsync(StepId)).ToList();
+    }
+    
+    private void EditQuiz(Guid id)
+    {
+        NavigationManager.NavigateTo("/updatequiz/" + id.ToString());
+    }
+    
+    private void AddQuiz()
+    {
+        NavigationManager.NavigateTo("/addquiz/" + StepId.ToString());
+    }
+}
+    

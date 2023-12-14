@@ -4,6 +4,7 @@
 
 <div style="display: flex; justify-content: space-between">
     <h3>Steps</h3>
+    <button class="btn btn-link" @onclick="Back">Back</button>
 </div>
 
 <br />
@@ -17,8 +18,9 @@ else
     <table>
         <thead>
         <tr>
-            <th>No.</th>
-            <th>Name</th>
+            <th style="padding-right: 100px">Name</th>
+            <th style="padding-right: 100px">Lectures</th>
+            <th>Quizzes</th>
         </tr>
         </thead>
         <tbody>
@@ -27,8 +29,9 @@ else
             foreach (var step in Steps)
             {
                 <tr>
-                    <td>@counter</td>
-                    <td>Name</td>
+                    <td>Step @counter</td>
+                    <td>    <button class="btn btn-link" @onclick="@((args) => ViewLectures(step.Id))">View Lectures</button></td>
+                    <td>    <button class="btn btn-link" @onclick="@((args) => ViewQuizzes(step.Id))">View Quizzes</button></td>
                 </tr>
                 counter++;
             }
@@ -86,6 +89,21 @@ else
                 Message += result.ValidationErrors;
             }
         }
+    }
+    
+    private void ViewLectures(Guid id)
+    {
+        NavigationManager.NavigateTo("/lectures/" + id.ToString());
+    }
+
+    private void ViewQuizzes(Guid id)
+    {
+        NavigationManager.NavigateTo("/quizzes/" + id.ToString());
+    }
+    
+    private void Back()
+    {
+        NavigationManager.NavigateTo("/courses");
     }
 }
     

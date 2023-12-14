@@ -47,4 +47,9 @@ builder.Services.AddHttpClient<IStepDataService, StepDataService>(client =>
     client.BaseAddress = new Uri("http://localhost:5131/");
 });
 
+builder.Services.AddHttpClient<IQuizDataService, QuizDataService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5131/");
+});
+
 await builder.Build().RunAsync();

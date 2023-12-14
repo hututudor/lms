@@ -1,0 +1,63 @@
+﻿@page "/addquiz/{StepId:guid}"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+<h3>New quiz</h3>
+
+<EditForm Model="@QuizDto" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
+    <div class="row mb-3 ms-2">
+        <label for="coursename" class="col-sm-3 form-label">Name:</label>
+        <div class="col-sm-5">
+            <InputText id="coursename" class="form-control" @bind-Value="@QuizDto.Name" placeholder="Enter quiz name"></InputText>
+            <ValidationMessage For="@(() => QuizDto.Name)" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save quiz</button>
+    <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Inject]
+    public IQuizDataService QuizDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    [Parameter]
+    public Guid StepId { get; set; }
+    
+    public QuizDto QuizDto { get; set; } = new QuizDto();
+
+    public string Message { get; set; }
+}
+
+@functions {
+    private async Task HandleValidSubmit()
+    {
+        QuizDto.StepId = StepId;
+        var result = await QuizDataService.CreateQuizAsync(QuizDto);
+        if (result.IsSuccess)
+        {
+            Message = "Quiz created successfully";
+            NavigationManager.NavigateTo("/quizzes/" + StepId);
+        }
+        else
+        {
+            Message = result.Message;
+            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            {
+                Message += result.ValidationErrors;
+            }
+        }
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/courses");
+    }
+
+}

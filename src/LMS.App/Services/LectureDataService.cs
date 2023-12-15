@@ -32,7 +32,22 @@ namespace LMS.App.Services
             return response!;
         }
         
-        public async Task<List<LectureViewModel>> GetLectureAsync()
+        public async Task<LectureViewModel> GetLectureAsync(string stepId)
+        {
+            httpClient.DefaultRequestHeaders.Authorization 
+                = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+            var result = await httpClient.GetAsync($"{RequestUri}/{stepId}", HttpCompletionOption.ResponseHeadersRead);
+            result.EnsureSuccessStatusCode();
+            var content = await result.Content.ReadAsStringAsync();
+            if (!result.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(content);
+            }
+            var lecture = JsonSerializer.Deserialize<LectureViewModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return lecture!;
+        }
+        
+        public async Task<List<LectureViewModel>> GetLecturesAsync()
         {
             httpClient.DefaultRequestHeaders.Authorization 
                 = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());

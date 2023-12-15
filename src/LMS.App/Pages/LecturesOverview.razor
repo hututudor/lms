@@ -18,8 +18,8 @@ else
     <table>
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Url</th>
+            <th style="padding-right: 100px">Name</th>
+            <th style="padding-right: 100px">URL</th>
         </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@ else
 @functions{
     protected override async Task OnInitializedAsync()
     {
-        Lectures = (await LectureDataService.GetLectureAsync()).ToList();
+        Lectures = (await LectureDataService.GetLecturesAsync()).ToList();
     }
     
     private void AddLecture()

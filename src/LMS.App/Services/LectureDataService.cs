@@ -32,26 +32,42 @@ namespace LMS.App.Services
             return response!;
         }
         
-        public async Task<LectureViewModel> GetLectureAsync(string stepId)
+        public async Task<ApiResponse<LectureViewModel>> UpdateLectureAsync(LectureViewModel lectureViewModel)
         {
-            httpClient.DefaultRequestHeaders.Authorization 
+            httpClient.DefaultRequestHeaders.Authorization
                 = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
-            var result = await httpClient.GetAsync($"{RequestUri}/{stepId}", HttpCompletionOption.ResponseHeadersRead);
+            var result = await httpClient.PutAsJsonAsync($"{RequestUri}/{lectureViewModel.Id}", lectureViewModel);
+            result.EnsureSuccessStatusCode();
+            var response = await result.Content.ReadFromJsonAsync<ApiResponse<LectureViewModel>>();
+            response!.IsSuccess = result.IsSuccessStatusCode;
+            return response!;
+        }
+        
+        public async Task<LectureViewModel> GetLectureAsync(Guid lectureId)
+        {
+            httpClient.DefaultRequestHeaders.Authorization
+                = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+            var requestUrl = $"{RequestUri}/{lectureId}";
+            Console.WriteLine($"Request URL: {requestUrl}");
+            
+            var result = await httpClient.GetAsync($"{RequestUri}/{lectureId}", HttpCompletionOption.ResponseHeadersRead);
             result.EnsureSuccessStatusCode();
             var content = await result.Content.ReadAsStringAsync();
             if (!result.IsSuccessStatusCode)
             {
                 throw new ApplicationException(content);
             }
-            var lecture = JsonSerializer.Deserialize<LectureViewModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            var lecture = JsonSerializer.Deserialize<LectureViewModel>(content,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return lecture!;
         }
         
-        public async Task<List<LectureViewModel>> GetLecturesAsync()
+        public async Task<List<LectureViewModel>> GetLecturesAsync(Guid stepId)
         {
-            httpClient.DefaultRequestHeaders.Authorization 
+            httpClient.DefaultRequestHeaders.Authorization
                 = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
-            var result = await httpClient.GetAsync(RequestUri, HttpCompletionOption.ResponseHeadersRead);
+            var result = await httpClient.GetAsync($"{RequestUri}/step/{stepId}", HttpCompletionOption.ResponseHeadersRead);
             result.EnsureSuccessStatusCode();
             var content = await result.Content.ReadAsStringAsync();
             if (!result.IsSuccessStatusCode)
@@ -61,6 +77,8 @@ namespace LMS.App.Services
             var wrapper = JsonSerializer.Deserialize<LectureWrapper>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return wrapper.Lectures!;
         }
+        
+       
     }
 }
 

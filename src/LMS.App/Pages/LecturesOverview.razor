@@ -1,10 +1,12 @@
-@page "/lectures"
+@page "/lectures/{StepId:guid}"
 @using LMS.App.Contracts
 @using LMS.App.ViewModels
 
 <div style="display: flex; justify-content: space-between">
     <h3>Lectures</h3>
-    <button class="btn btn-primary" @onclick="AddLecture">Add Lecture</button>
+    <div>
+        <button class="btn btn-primary" @onclick="AddLecture">Add Lecture</button>
+    </div>
 </div>
 
 <br />
@@ -28,6 +30,7 @@ else
             <tr>
                 <td>@lecture.Name </td>
                 <td>@lecture.Url</td>
+                <td><button class="btn btn-link" @onclick="@((args) => EditLecture(lecture.Id))">Edit Lecture</button></td>
             </tr>
         }
         </tbody>
@@ -37,21 +40,33 @@ else
 @code {
     [Inject]
     public ILectureDataService LectureDataService { get; set; }
-    
+
     [Inject]
     public NavigationManager NavigationManager { get; set; }
-
+    
     public List<LectureViewModel> Lectures { get; set; }
-}
 
-@functions{
+
+    //public List<LectureDto> Lectures { get; set; } 
+    [Parameter]
+    public Guid StepId { get; set; }
+    //public LectureDto LectureDto { get; set; } = new LectureDto();
+
+    public string Message { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
-        Lectures = (await LectureDataService.GetLecturesAsync()).ToList();
+        Lectures = (await LectureDataService.GetLecturesAsync(StepId)).ToList();
+
+    }
+
+    private void EditLecture(Guid id)
+    {
+        NavigationManager.NavigateTo("/updatelecture/" + id.ToString());
     }
     
     private void AddLecture()
     {
-        NavigationManager.NavigateTo("/addlecture");
+        NavigationManager.NavigateTo("/addlecture/"+StepId.ToString());
     }
 }

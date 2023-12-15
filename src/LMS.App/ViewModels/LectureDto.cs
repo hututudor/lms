@@ -4,11 +4,12 @@ namespace LMS.App.ViewModels;
 
 public class LectureDto
 {
+    public LectureDto()
+    {
+    }
     public Guid Id { get; set; }
     public Guid StepId { get; set; }
-    [Required(ErrorMessage = "Name is required")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Url is required")]
-    public string Url { get; set; }
+    public string Url { get; set; } = string.Empty;
 }

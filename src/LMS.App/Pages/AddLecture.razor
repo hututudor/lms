@@ -1,4 +1,4 @@
-@page "/addlecture"
+@page "/addlecture/{StepId:guid}"
 @using LMS.App.Contracts
 @using LMS.App.ViewModels
 <h3>New Lecture</h3>
@@ -33,6 +33,9 @@
 
     [Inject]
     public NavigationManager NavigationManager { get; set; }
+    
+    [Parameter]
+    public Guid StepId { get; set; }
 
     public LectureDto LectureDto { get; set; } = new LectureDto();
 
@@ -42,11 +45,12 @@
 @functions {
     private async Task HandleValidSubmit()
     {
+        LectureDto.StepId = StepId;
         var result = await LectureDataService.CreateLectureAsync(LectureDto);
         if (result.IsSuccess)
         {
             Message = "Lecture created successfully";
-            NavigationManager.NavigateTo("/lectures");
+            NavigationManager.NavigateTo("/lectures/" + StepId);
         }
         else
         {

@@ -1,0 +1,69 @@
+@page "/updatelecture/{LectureId:guid}"
+@using LMS.App.Contracts
+@using LMS.App.ViewModels
+<h3>Update Lecture</h3>
+
+<EditForm Model="@LectureViewModel" OnValidSubmit="@HandleValidSubmit">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
+    <div class="row mb-3 ms-2">
+        <label for="lecturename" class="col-sm-3 form-label">Name:</label>
+        <div class="col-sm-5">
+            <InputText id="lecturename" class="form-control" @bind-Value="@LectureViewModel.Name" placeholder="Enter lecture name"></InputText>
+            <InputText id="lectureurl" class="form-control" @bind-Value="@LectureViewModel.Url" placeholder="Enter url name"></InputText>
+            <ValidationMessage For="@(() => LectureViewModel.Name)"/>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Lecture</button>
+    <button class="btn btn-primary" @onclick="Cancel">Cancel</button>
+</EditForm>
+
+@code {
+    [Inject]
+    public ILectureDataService LectureDataService { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    [Parameter]
+    public Guid LectureId { get; set; }
+
+    public LectureViewModel LectureViewModel { get; set; } = new LectureViewModel();
+
+    public string Message { get; set; }
+}
+
+@functions {
+    protected override async Task OnInitializedAsync()
+    {
+        LectureViewModel = await LectureDataService.GetLectureAsync(LectureId);
+        
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var result = await LectureDataService.UpdateLectureAsync(LectureViewModel);
+        if (result.IsSuccess)
+        {
+            Message = "Lecture updated successfully";
+            NavigationManager.NavigateTo("/lectures/" + LectureViewModel.StepId);
+        }
+        else
+        {
+            Message = result.Message;
+            if (!string.IsNullOrWhiteSpace(result.ValidationErrors))
+            {
+                Message += result.ValidationErrors;
+            }
+        }
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/lectures/" + LectureViewModel.StepId);
+    }
+
+}

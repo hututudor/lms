@@ -20,7 +20,7 @@ public class LectureController: ApiControllerBase
     }
     
     [Authorize(Roles = "User")]
-    [HttpGet]
+    [HttpGet("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -33,12 +33,10 @@ public class LectureController: ApiControllerBase
     }
 
     [Authorize(Roles = "User")]
-    [HttpPost("Step")]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create(Guid id, CreateLectureCommand command)
+    public async Task<IActionResult> Create(CreateLectureCommand command)
     {
-        command.StepId = id;
-        
         var result = await Mediator.Send(command);
         if (!result.Success)
         {

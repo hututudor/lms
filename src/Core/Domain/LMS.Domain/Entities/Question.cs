@@ -21,12 +21,18 @@ public class Question
         Options = options;
     }
     
-    public static Result<Question> Update(Question question, Guid quizId, string description, string answear, List<string> options)
+    public static Result<Question> Update(Question question, Guid quizId, string description, string answer, List<string> options)
     {
         if (string.IsNullOrWhiteSpace(description))
         {
             return Result<Question>.Failure("description is required");
         }
+        
+        if (string.IsNullOrWhiteSpace(answer))
+        {
+            return Result<Question>.Failure("answer is required");
+        }
+
 
         if (quizId == default)
         {
@@ -35,7 +41,7 @@ public class Question
 
         question.Description = description;
         question.Options = options;
-        question.Answer = answear;
+        question.Answer = answer;
         
         return Result<Question>.Success(question);
     }

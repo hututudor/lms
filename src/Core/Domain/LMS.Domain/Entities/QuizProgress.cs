@@ -29,6 +29,11 @@ public class QuizProgress
         {
             return Result<QuizProgress>.Failure("enrollmentId is required");
         }
+        
+        if (score < 0)
+        {
+            return Result<QuizProgress>.Failure("score should not be less than zero");
+        }
 
         return Result<QuizProgress>.Success(new QuizProgress(quizId, enrollmentId, score));
     }

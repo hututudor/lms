@@ -117,7 +117,7 @@ public class CoursesControllerTests: BaseApplicationContextTests
 
         // Act
         var response = await Client.GetAsync($"{RequestUri}/{createResult.Course.Id}");
-
+        createResponse.EnsureSuccessStatusCode();
         response.EnsureSuccessStatusCode();
         var responseString = await response.Content.ReadAsStringAsync();
         var result = JsonConvert.DeserializeObject<CourseDto>(responseString);

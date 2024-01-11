@@ -46,8 +46,8 @@ public class BaseApplicationContextTests: IAsyncDisposable
                     var scopedServices = scope.ServiceProvider;
                     var db = scopedServices.GetRequiredService<GlobalLMSContext>();
 
-                    db.Database.EnsureCreated();
                     db.Database.EnsureDeleted();
+                    db.Database.EnsureCreated();
 
                     Seed.InitializeDbForTests(db);
                 }

@@ -20,7 +20,7 @@ public class StepController: ApiControllerBase
     }
     
     [Authorize(Roles = "User")]
-    [HttpGet]
+    [HttpGet("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(Guid id)
     {
@@ -56,7 +56,7 @@ public class StepController: ApiControllerBase
     }
 
     [Authorize(Roles = "User")]
-    [HttpDelete]
+    [HttpDelete("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)
     {

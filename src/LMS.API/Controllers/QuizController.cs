@@ -25,6 +25,10 @@ public class QuizController: ApiControllerBase
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await Mediator.Send(new GetQuizByIdQuery(id));
+        if (result == null)
+        {
+            return NotFound();
+        }
         return Ok(result);
     }
     
@@ -52,7 +56,7 @@ public class QuizController: ApiControllerBase
     }
     
     [Authorize(Roles = "User")]
-    [HttpDelete]
+    [HttpDelete("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)
     {

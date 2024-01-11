@@ -7,9 +7,7 @@ using FluentAssertions;
 using LMS.API.IntegrationTests.Base;
 using LMS.Application.Features.Lectures;
 using LMS.Application.Features.Lectures.Commands.CreateLecture;
-using LMS.Application.Features.Lectures.Commands.DeleteLecture;
 using LMS.Application.Features.Lectures.Commands.UpdateLecture;
-using LMS.Domain.Entities;
 using Newtonsoft.Json;
 
 namespace LMS.API.IntegrationTests.Controllers;

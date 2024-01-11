@@ -1,4 +1,3 @@
-using LMS.Application.Features.Quizzes;
 using LMS.Application.Persistence;
 using LMS.Domain.Entities;
 using MediatR;

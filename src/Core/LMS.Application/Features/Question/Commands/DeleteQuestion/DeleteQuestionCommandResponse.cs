@@ -1,4 +1,3 @@
-using LMS.Application.Features.Quizzes;
 using LMS.Application.Responses;
 
 namespace LMS.Application.Features.Questions.Commands.DeleteQuestion;

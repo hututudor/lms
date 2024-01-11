@@ -8,7 +8,6 @@ using LMS.API.IntegrationTests.Base;
 using LMS.App.ViewModels;
 using LMS.Application.Features.Steps.Commands.CreateStep;
 using LMS.Application.Features.Steps.Commands.UpdateStep;
-using LMS.Domain.Entities;
 using Newtonsoft.Json;
 
 namespace LMS.API.IntegrationTests.Controllers;

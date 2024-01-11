@@ -1,5 +1,4 @@
 using FluentValidation;
-using LMS.Application.Features.Courses.Commands.UpdateCourse;
 
 namespace LMS.Application.Features.Courses.Commands.UpdateCourse;
 

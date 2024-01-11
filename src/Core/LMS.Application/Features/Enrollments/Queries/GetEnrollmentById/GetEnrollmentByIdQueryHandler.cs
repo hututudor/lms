@@ -1,5 +1,4 @@
-﻿using LMS.Application.Features.Enrollments.Queries.GetAllEnrollmentsByUserId;
-using LMS.Application.Persistence;
+﻿using LMS.Application.Persistence;
 using MediatR;
 
 namespace LMS.Application.Features.Enrollments.Queries.GetEnrollmentById;

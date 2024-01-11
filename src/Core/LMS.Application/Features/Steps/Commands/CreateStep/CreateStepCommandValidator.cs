@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using LMS.Domain.Entities;
 
 namespace LMS.Application.Features.Steps.Commands.CreateStep;
 

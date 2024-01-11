@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace LMS.App.ViewModels;
 
 public class LectureDto

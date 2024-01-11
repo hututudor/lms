@@ -1,6 +1,3 @@
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-
 namespace LMS.Domain.Entities;
 using LMS.Domain.Common;
 

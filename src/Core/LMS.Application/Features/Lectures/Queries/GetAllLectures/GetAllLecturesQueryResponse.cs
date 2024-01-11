@@ -1,6 +1,4 @@
-﻿using LMS.Application.Responses;
-
-namespace LMS.Application.Features.Lectures.Queries.GetAll;
+﻿namespace LMS.Application.Features.Lectures.Queries.GetAll;
 
 public class GetAllLecturesQueryResponse
 {

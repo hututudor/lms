@@ -1,5 +1,4 @@
 using CourseRepository;
-using LMS.Application.Features.Courses.Commands.CreateCourse;
 using LMS.Domain.Entities;
 using MediatR;
 

@@ -58,7 +58,7 @@ public class QuestionController: ApiControllerBase
     }
     
     [Authorize(Roles = "User")]
-    [HttpDelete]
+    [HttpDelete("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(Guid id)
     {

@@ -24,6 +24,12 @@ public class Seed
             Step.Create(Guid.Parse("aedefc40-7093-4118-abc3-b2f0929353fd")).Value,
             Step.Create(Guid.Parse("6d95df85-c2c8-4967-acf2-e470e85e5fa2")).Value
         };
+
+        var questions = new List<Question>
+        {
+            Question.Create(Guid.Parse("aedefc40-7093-4118-abc3-b2f0929353fd"), "Question 1", "Answer 1", new List<string>()).Value,
+            Question.Create(Guid.Parse("6d95df85-c2c8-4967-acf2-e470e85e5fa2"), "Question 2", "Answer 2", new List<string>()).Value
+        };
         
         context.Lectures.RemoveRange();
         context.Lectures.AddRange(lectures);
@@ -33,6 +39,9 @@ public class Seed
         
         context.Courses.RemoveRange();
         context.Courses.AddRange(courses);
+        
+        context.Questions.RemoveRange();
+        context.Questions.AddRange(questions);
         
         context.SaveChanges();
     } 

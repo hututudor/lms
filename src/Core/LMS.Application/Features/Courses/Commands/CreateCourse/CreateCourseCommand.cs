@@ -1,4 +1,3 @@
-using LMS.Application.Features.Courses.Commands.CreateCourse;
 using MediatR;
 
 namespace LMS.Application.Features.Courses.Commands.CreateCourse;

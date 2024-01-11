@@ -1,5 +1,4 @@
-﻿using LMS.Application.Features.Enrollments;
-using LMS.Application.Persistence;
+﻿using LMS.Application.Persistence;
 using LMS.Domain.Entities;
 using MediatR;
 

@@ -1,5 +1,4 @@
 ﻿using Infrastructure;
-using LMS.API;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

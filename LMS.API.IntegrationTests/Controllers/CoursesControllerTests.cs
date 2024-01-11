@@ -7,7 +7,6 @@ using FluentAssertions;
 using LMS.API.IntegrationTests.Base;
 using LMS.Application.Features.Courses;
 using LMS.Application.Features.Courses.Commands.CreateCourse;
-using LMS.Application.Features.Courses.Commands.DeleteCourse;
 using LMS.Application.Features.Courses.Commands.UpdateCourse;
 using Newtonsoft.Json;
 

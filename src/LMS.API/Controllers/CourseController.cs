@@ -3,7 +3,6 @@ using LMS.Application.Features.Courses.Commands.DeleteCourse;
 using LMS.Application.Features.Courses.Commands.UpdateCourse;
 using LMS.Application.Features.Courses.Queries;
 using LMS.Application.Features.Courses.Queries.GetCourseById;
-using LMS.Application.Features.Lectures.Queries.GetById;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace LMS.API.Controllers

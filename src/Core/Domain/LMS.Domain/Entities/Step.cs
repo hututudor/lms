@@ -34,14 +34,4 @@ public class Step: AuditableEntity
         
         return Result<Step>.Success(step);
     }
-
-    public void AttachCourse(Guid courseId)
-    {
-        if (courseId == default)
-        {
-            return;
-        }
-
-        CourseId = courseId;
-    }
 }

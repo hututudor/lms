@@ -13,6 +13,7 @@ public class CourseTests
         
         // Assert
         result.IsSuccess.Should().BeTrue();
+        result.Value.Name.Should().Be("course 1");
     }
     
     [Fact]

@@ -35,24 +35,4 @@ public class QuizResponse
 
         return Result<QuizResponse>.Success(new QuizResponse(questionId, enrollmentId, response));
     }
-    
-    public void AttachQuestion(Guid questionId)
-    {
-        if (questionId == default)
-        {
-            return;
-        }
-
-        QuestionId = questionId;
-    }
-    
-    public void AttachEnrollment(Guid enrollmentId)
-    {
-        if (enrollmentId == default)
-        {
-            return;
-        }
-
-        EnrollmentId = enrollmentId;
-    }
 }

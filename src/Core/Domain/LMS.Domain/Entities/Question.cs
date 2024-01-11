@@ -65,14 +65,4 @@ public class Question
 
         return Result<Question>.Success(new Question(quizId, description, answer, options));
     }
-    
-    public void AttachQuiz(Guid quizId)
-    {
-        if (quizId == default)
-        {
-            return;
-        }
-
-        QuizId = quizId;
-    }
 }

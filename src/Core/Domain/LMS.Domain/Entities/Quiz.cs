@@ -46,14 +46,4 @@ public class Quiz
         
         return Result<Quiz>.Success(quiz);
     }
-    
-    public void AttachStep(Guid stepId)
-    {
-        if (stepId == default)
-        {
-            return;
-        }
-
-        StepId = stepId;
-    }
 }

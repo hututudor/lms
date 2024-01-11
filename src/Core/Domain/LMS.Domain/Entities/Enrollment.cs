@@ -49,29 +49,4 @@ public class Enrollment: AuditableEntity
         
         return Result<Enrollment>.Success(enrollment);
     }
-
-    public void AttachUser(Guid userId)
-    {
-        if (userId == default)
-        {
-            return;
-        }
-
-        UserId = userId;
-    }
-
-    public void AttachCourse(Guid courseId)
-    {
-        if (courseId == default)
-        {
-            return;
-        }
-
-        CourseId = courseId;
-    }
-
-    public void Complete()
-    {
-        CompletedAt = DateTime.Now;
-    }
 }

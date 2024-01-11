@@ -37,29 +37,4 @@ public class QuizProgress
 
         return Result<QuizProgress>.Success(new QuizProgress(quizId, enrollmentId, score));
     }
-    
-    public void AttachEnrollment(Guid enrollmentId)
-    {
-        if (enrollmentId == default)
-        {
-            return;
-        }
-
-        EnrollmentId = enrollmentId;
-    }
-    
-    public void AttachQuiz(Guid quizId)
-    {
-        if (quizId == default)
-        {
-            return;
-        }
-
-        QuizId = quizId;
-    }
-    
-    public void Complete()
-    {
-        CompletedAt = DateTime.Now;
-    }
 }

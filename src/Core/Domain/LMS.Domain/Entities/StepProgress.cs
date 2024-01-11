@@ -29,29 +29,4 @@ public class StepProgress
 
         return Result<StepProgress>.Success(new StepProgress(enrollmentId, stepId));
     }
-    
-    public void AttachEnrollment(Guid enrollmentId)
-    {
-        if (enrollmentId == default)
-        {
-            return;
-        }
-
-        EnrollmentId = enrollmentId;
-    }
-    
-    public void AttachStep(Guid stepId)
-    {
-        if (stepId == default)
-        {
-            return;
-        }
-
-        StepId = stepId;
-    }
-    
-    public void Complete()
-    {
-        CompletedAt = DateTime.Now;
-    }
 }

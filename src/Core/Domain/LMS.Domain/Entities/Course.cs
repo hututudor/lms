@@ -47,14 +47,4 @@ public class Course: AuditableEntity
         
         return Result<Course>.Success(course);
     }
-    
-    public void AttachUser(Guid userId)
-    {
-        if (userId == default)
-        {
-            return;
-        }
-
-        UserId = userId;
-    }
 }

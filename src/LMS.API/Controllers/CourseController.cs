@@ -56,7 +56,7 @@ namespace LMS.API.Controllers
         }
         
         [Authorize(Roles = "User")]
-        [HttpDelete]
+        [HttpDelete("{id:Guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete(Guid id)
         {

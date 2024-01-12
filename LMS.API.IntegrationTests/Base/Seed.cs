@@ -44,5 +44,14 @@ public class Seed
         context.Questions.AddRange(questions);
         
         context.SaveChanges();
+        
+        var quizzes = new List<Quiz>
+        {
+            Quiz.Create("Quiz 1", Guid.Parse("aedefc40-7093-4118-abc3-b2f0929353fd")).Value,
+            Quiz.Create("Quiz 2", Guid.Parse("6d95df85-c2c8-4967-acf2-e470e85e5fa2")).Value
+        };
+        context.Quizes.RemoveRange();
+        context.Quizes.AddRange(quizzes);
+        context.SaveChanges();
     } 
 }

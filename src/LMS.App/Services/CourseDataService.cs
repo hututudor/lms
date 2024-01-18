@@ -44,6 +44,17 @@ namespace LMS.App.Services
             return response!;
         }
         
+        public async Task<ApiResponse<CourseViewModel>> DeleteCourseAsync(Guid courseId)
+        {
+            httpClient.DefaultRequestHeaders.Authorization 
+                = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+            var result = await httpClient.DeleteAsync($"{RequestUri}/{courseId}");
+            result.EnsureSuccessStatusCode();
+            var response = await result.Content.ReadFromJsonAsync<ApiResponse<CourseViewModel>>();
+            response!.IsSuccess = result.IsSuccessStatusCode;
+            return response!;
+        }
+        
         public async Task<CourseViewModel> GetCourseAsync(string courseId)
         {
             httpClient.DefaultRequestHeaders.Authorization 

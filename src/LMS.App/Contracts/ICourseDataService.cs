@@ -11,5 +11,7 @@ namespace LMS.App.Contracts
         Task<ApiResponse<CourseViewModel>> CreateCourseAsync(CourseDto courseDto);
         
         Task<ApiResponse<CourseViewModel>> UpdateCourseAsync(CourseViewModel courseDto);
+        
+        Task<ApiResponse<CourseViewModel>> DeleteCourseAsync(Guid courseId);
     }
 }

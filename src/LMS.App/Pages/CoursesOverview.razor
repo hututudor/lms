@@ -13,13 +13,18 @@
 {
     <p><em>Loading...</em></p>
 }
-else
+else if(Courses.Count == 0)
+{
+    <p><em>There are no courses at the moment. Add a new one to start.</em></p>
+}
+else 
 {
     <table>
         <thead>
             <tr>
                 <th style="padding-right: 100px">Name</th>
                 <th style="padding-right: 100px">Edit</th>
+                <th style="padding-right: 100px">Delete</th>
                 <th>Steps</th>
             </tr>
         </thead>
@@ -29,6 +34,7 @@ else
                 <tr>
                     <td>@course.Name </td>
                     <td>    <button class="btn btn-link" @onclick="@((args) => EditCourse(course.Id))">Edit Course</button></td>
+                    <td>    <button class="btn btn-link" @onclick="@((args) => DeleteCourse(course.Id))">Delete Course</button></td>
                     <td>    <button class="btn btn-link" @onclick="@((args) => ViewSteps(course.Id))">View Steps</button></td>
                 </tr>
             }
@@ -60,6 +66,13 @@ else
     private void EditCourse(Guid id)
     {
         NavigationManager.NavigateTo("/updatecourse/" + id.ToString());
+    }      
+    
+    private async void DeleteCourse(Guid id)
+    {
+        await CourseDataService.DeleteCourseAsync(id);
+
+        NavigationManager.Refresh();
     }    
     
     private void ViewSteps(Guid id)

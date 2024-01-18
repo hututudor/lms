@@ -13,6 +13,7 @@ namespace LMS.App.Contracts
         Task<ApiResponse<LectureViewModel>> CreateLectureAsync(LectureDto lectureDto);
         
         Task<ApiResponse<LectureViewModel>> UpdateLectureAsync(LectureViewModel lectureViewModel);
-
+        
+        Task<ApiResponse<LectureViewModel>> DeleteLectureAsync(Guid lectureId);
     }
 }

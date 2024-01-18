@@ -77,8 +77,18 @@ namespace LMS.App.Services
             var wrapper = JsonSerializer.Deserialize<LectureWrapper>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return wrapper.Lectures!;
         }
-        
-       
+
+        public async Task<ApiResponse<LectureViewModel>> DeleteLectureAsync(Guid lectureId)
+        {
+            httpClient.DefaultRequestHeaders.Authorization
+                = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+            var result = await httpClient.DeleteAsync($"{RequestUri}/{lectureId}");
+            result.EnsureSuccessStatusCode();
+            var response = await result.Content.ReadFromJsonAsync<ApiResponse<LectureViewModel>>();
+            response!.IsSuccess = result.IsSuccessStatusCode;
+            return response!;
+
+        }
     }
 }
 

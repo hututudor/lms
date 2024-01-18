@@ -10,7 +10,7 @@ namespace LMS.Identity
         // {
         //     optionsBuilder.UseNpgsql("Host=localhost;Database=lmsUsers;Username=postgres;Password=root");
         // }
-        
+        //
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

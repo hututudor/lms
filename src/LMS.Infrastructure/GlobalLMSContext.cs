@@ -15,10 +15,10 @@ public class GlobalLMSContext : DbContext
     public DbSet<QuizResponse> QuizResponse { get; set; }
     public DbSet<QuizProgress> QuizProgress { get; set; }
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    // {
-    //     optionsBuilder.UseNpgsql("Host=localhost;Database=lms;Username=postgres;Password=root");
-    // }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseNpgsql("Host=localhost;Database=lms;Username=postgres;Password=root");
+    }
     
     public GlobalLMSContext(DbContextOptions<GlobalLMSContext> options) : base(options)
     {

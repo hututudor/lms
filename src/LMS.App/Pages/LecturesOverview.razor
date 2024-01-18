@@ -15,6 +15,10 @@
 {
     <p><em>Loading...</em></p>
 }
+else if (Lectures.Count == 0)
+{
+    <p><em>No lectures found</em></p>
+}
 else
 {
     <table>
@@ -22,6 +26,8 @@ else
         <tr>
             <th style="padding-right: 100px">Name</th>
             <th style="padding-right: 100px">URL</th>
+            <th style="padding-right: 100px">Delete</th>
+            <th style="padding-right: 100px">Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +36,7 @@ else
             <tr>
                 <td>@lecture.Name </td>
                 <td>@lecture.Url</td>
+                <td><button class="btn btn-link" @onclick="@((args) => DeleteLecture(lecture.Id))">Delete Lecture</button></td>
                 <td><button class="btn btn-link" @onclick="@((args) => EditLecture(lecture.Id))">Edit Lecture</button></td>
             </tr>
         }
@@ -69,4 +76,11 @@ else
     {
         NavigationManager.NavigateTo("/addlecture/"+StepId.ToString());
     }
+    
+    private async void DeleteLecture(Guid id)
+    {
+        await LectureDataService.DeleteLectureAsync(id);
+
+        NavigationManager.Refresh();
+    }    
 }

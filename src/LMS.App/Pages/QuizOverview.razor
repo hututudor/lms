@@ -15,6 +15,10 @@
 {
     <p><em>Loading...</em></p>
 }
+else if (Quizzes.Count == 0)
+{
+    <p><em>There are no quizzes at the moment. Add a new one to start.</em></p>
+}
 else
 {
     <table>
@@ -22,6 +26,7 @@ else
         <tr>
             <th style="padding-right: 100px">Name</th>
             <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +36,7 @@ else
                 <tr>
                     <td>@quiz.Name</td>
                     <td>    <button class="btn btn-link" @onclick="@((args) => EditQuiz(quiz.Id))">Edit Quiz</button></td>
+                    <td>    <button class="btn btn-link" @onclick="@((args) => DeleteQuiz(quiz.Id))">Delete Quiz</button></td>
                 </tr>
             }
         }
@@ -60,6 +66,12 @@ else
     private void EditQuiz(Guid id)
     {
         NavigationManager.NavigateTo("/updatequiz/" + id.ToString());
+    }
+    
+    private async void DeleteQuiz(Guid id)
+    {
+        await QuizDataService.DeleteQuizAsync(id);
+        NavigationManager.Refresh();
     }
     
     private void AddQuiz()

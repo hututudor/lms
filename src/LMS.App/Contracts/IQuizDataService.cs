@@ -12,5 +12,7 @@ namespace LMS.App.Contracts
         Task<ApiResponse<QuizViewModel>> CreateQuizAsync(QuizDto quizDto);
         
         Task<ApiResponse<QuizViewModel>> UpdateQuizAsync(QuizViewModel quizViewModel);
+        
+        Task<ApiResponse<QuizViewModel>> DeleteQuizAsync(Guid quizId);
     }
 }

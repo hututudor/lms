@@ -14,7 +14,7 @@ public class GetAllQuizzesQueryHandler: IRequestHandler<GetAllQuizzesQuery, GetA
     
     public async Task<GetAllQuizzesQueryResponse> Handle(GetAllQuizzesQuery request, CancellationToken cancellationToken)
     {
-        var quizzes = await repository.GetAll();
+        var quizzes = await repository.GetAllByStepId(request.StepId);
         var quizzesDto = quizzes.Value.Select(lecture => new QuizDto()
         {
             Id = lecture.Id,

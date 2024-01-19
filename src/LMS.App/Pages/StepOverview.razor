@@ -37,7 +37,8 @@ else
                     <td>Step @counter</td>
                     <td>    <button class="btn btn-link" @onclick="@((args) => ViewLectures(step.Id))">View Lectures</button></td>
                     <td>    <button class="btn btn-link" @onclick="@((args) => ViewQuizzes(step.Id))">View Quizzes</button></td>
-                <td><button class="btn btn-link" @onclick="@((args) => DeleteStep(step.Id))">Delete Step</button></td>                </tr>
+                    <td>    <button class="btn btn-link" @onclick="@((args) => DeleteStep(step.Id))">Delete Step</button></td>                
+                </tr>
                 counter++;
             }
         }
@@ -85,6 +86,7 @@ else
         {
             Steps.Add(StepDto);
             StepDto = new StepDto(); 
+            NavigationManager.Refresh();
         }
         else
         {
@@ -114,7 +116,6 @@ else
     private async void DeleteStep(Guid id)
     {
         await StepDataService.DeleteStepAsync(id);
-
         NavigationManager.Refresh();
     }
 }

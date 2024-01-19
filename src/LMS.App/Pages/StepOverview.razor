@@ -13,6 +13,10 @@
 {
     <p><em>Loading...</em></p>
 }
+else if (Steps.Count == 0)
+{
+    <p><em>No steps found</em></p>
+}
 else
 {
     <table>
@@ -21,6 +25,7 @@ else
             <th style="padding-right: 100px">Name</th>
             <th style="padding-right: 100px">Lectures</th>
             <th>Quizzes</th>
+            <th style="padding-right: 100px">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -32,7 +37,7 @@ else
                     <td>Step @counter</td>
                     <td>    <button class="btn btn-link" @onclick="@((args) => ViewLectures(step.Id))">View Lectures</button></td>
                     <td>    <button class="btn btn-link" @onclick="@((args) => ViewQuizzes(step.Id))">View Quizzes</button></td>
-                </tr>
+                <td><button class="btn btn-link" @onclick="@((args) => DeleteStep(step.Id))">Delete Step</button></td>                </tr>
                 counter++;
             }
         }
@@ -104,6 +109,13 @@ else
     private void Back()
     {
         NavigationManager.NavigateTo("/courses");
+    }
+    
+    private async void DeleteStep(Guid id)
+    {
+        await StepDataService.DeleteStepAsync(id);
+
+        NavigationManager.Refresh();
     }
 }
     

@@ -46,6 +46,17 @@ namespace LMS.App.Services
             var wrapper = JsonSerializer.Deserialize<StepWrapper>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             return wrapper.Steps!;
         }
+        
+        public async Task<ApiResponse<StepViewModel>> DeleteStepAsync(Guid stepId)
+        {
+            httpClient.DefaultRequestHeaders.Authorization
+                = new AuthenticationHeaderValue("Bearer", await tokenService.GetTokenAsync());
+            var result = await httpClient.DeleteAsync($"{RequestUri}/{stepId}");
+            result.EnsureSuccessStatusCode();
+            var response = await result.Content.ReadFromJsonAsync<ApiResponse<StepViewModel>>();
+            response!.IsSuccess = result.IsSuccessStatusCode;
+            return response!;
+        }
     }
 }
 

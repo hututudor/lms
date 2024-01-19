@@ -8,5 +8,6 @@ namespace LMS.App.Contracts
         Task<List<StepViewModel>> GetStepsAsync(Guid courseId);
 
         Task<ApiResponse<StepViewModel>> CreateStepAsync(StepDto stepDto);
+        Task<ApiResponse<StepViewModel>> DeleteStepAsync(Guid stepId);
     }
 }
